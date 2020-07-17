@@ -1,0 +1,146 @@
+#N canvas 463 348 1284 667 12;
+#N canvas 85 53 1794 961 Clima 1;
+#X obj 101 770 soundfiler;
+#X floatatom 101 798 20 0 0 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array Fire_ArthurBrown 7.23178e+06 float 2;
+#X coords 0 1 7.23178e+06 -1 700 140 1 0 0;
+#X restore 262 489 graph;
+#X obj 437 815 dac~;
+#X text 248 799 #Samples;
+#X obj 183 771 print;
+#X msg 446 755 stop;
+#N canvas 0 23 450 278 (subpatch) 0;
+#X array TemperaturaMédiaAnualPortugal 50 float 5;
+#A 0 20.4143 19.5286 19 20.3429 20.0857 20.0429 20.3143 19.9429 20.3714
+20.2 20.5143 21.1571 20.4 20.3571 20 20.6286 20.0143 20.7714 20.3857
+21.2429 21.0143 20.6143 20.6286 19.5571 20.6143 21.6571 20.3286 21.3429
+21.0143 20.5286 20.6 20.5429 20.6 20.9286 20.9286 21.1286 21.1571 20.6857
+20.4571 21.2286 20.7429 21.5857 20.8429 20.8 21.1667 21.5286 21.3286
+22.5429 20.9 21.3857;
+#X coords 0 23 49 18 700 300 1 200 0;
+#X restore 261 167 graph;
+#X floatatom 1665 526 5 0 0 0 - - -;
+#X obj 1426 438 + 1;
+#X obj 1394 438 int;
+#X floatatom 1393 472 5 0 0 0 - - -;
+#X obj 1394 405 metro 3280;
+#X obj 1394 379 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1
+0 1;
+#X obj 264 168 hsl 695 300 0 50 0 0 empty empty empty -2 -8 0 10 -258113
+-262144 -1 0 1;
+#X obj 1127 236 tabwrite TemperaturaMédiaAnualPortugal;
+#X msg 101 741 read -resize Fire_AB.wav Fire_ArthurBrown;
+#X obj 1396 525 tabread TemperaturaMédiaAnualPortugal;
+#X obj 1477 469 line;
+#X msg 1477 443 \$1 3280;
+#X floatatom 1544 443 5 0 0 0 - - -;
+#X obj 1544 468 send pos;
+#X obj 262 69 receive pos;
+#X obj 265 490 hsl 695 140 0 50 0 0 empty empty empty -2 -8 0 10 -258113
+-262144 -1 0 1;
+#X obj 437 783 tabplay~ Fire_ArthurBrown;
+#X obj 932 132 bng 30 250 50 0 empty empty empty 17 7 0 10 -260097
+-258113 -262144;
+#X obj 143 74 send start;
+#X obj 1394 348 receive start;
+#X obj 437 729 receive start;
+#X floatatom 1705 710 5 0 0 0 - - -;
+#X obj 1396 575 line;
+#X msg 1396 549 \$1 3280;
+#X floatatom 1719 662 5 0 0 0 - - -;
+#X obj 1259 693 noise~;
+#X obj 1259 728 vcf~;
+#X obj 1285 856 *~;
+#X obj 1285 892 dac~;
+#X obj 1412 709 expr 0.1 + (20) * (($f1 - 19)/(23 - 19));
+#X obj 1424 661 expr 50 + (5000) * (($f1 - 19)/(23 - 19));
+#X msg 1343 398 0;
+#X floatatom 1651 782 5 0 0 0 - - -;
+#X obj 1259 635 delay 2380;
+#X obj 1259 602 receive start;
+#X msg 1259 662 seed 112;
+#X text 916 448 2017;
+#X text 908 168 22.5ºC;
+#X text 274 448 1972;
+#X text 269 167 19.0ºC;
+#X text 1427 639 Cutoff frequency;
+#X text 1422 687 Q;
+#X text 1410 760 Noise amplitude;
+#X obj 1394 780 expr 0 + 5 * (($f1 - 19)/(23 - 19));
+#X text 101 718 Reads .wav file;
+#X text 1126 19 Retrieved from: https://www.pordata.pt/Portugal/Temperatura+m%C3%A1xima+do+ar+(m%C3%A9dia+anual)-1068
+;
+#X text 1126 74 Average of all the locations in mainland Portugal (excluding
+Funchal and Angra do Heroísmo);
+#X msg 1127 112 \; TemperaturaMédiaAnualPortugal 0 20.4143 19.5286
+19 20.3429 20.0857 20.0429 20.3143 19.9429 20.3714 20.2 20.5143 21.1571
+20.4 20.3571 20 20.6286 20.0143 20.7714 20.3857 21.2429 21.0143 20.6143
+20.6286 19.5571 20.6143 21.6571 20.3286 21.3429 21.0143 20.5286 20.6
+20.5429 20.6 20.9286 20.9286 21.1286 21.1571 20.6857 20.4571 21.2286
+20.7429 21.5857 20.8429 20.8 21.1667 21.5286 21.3286 22.5429 20.9 21.3857
+;
+#X obj 969 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -1 -1 -262144
+;
+#X obj 929 67 send stop;
+#X obj 543 732 receive stop;
+#X obj 1177 346 receive stop;
+#X obj 1177 369 t b b b;
+#X msg 1311 790 0;
+#X obj 1202 408 delay 3300;
+#X msg 1202 447 0 250;
+#X obj 1203 501 line;
+#X connect 0 0 1 0;
+#X connect 0 1 5 0;
+#X connect 6 0 24 0;
+#X connect 9 0 10 1;
+#X connect 10 0 9 0;
+#X connect 10 0 11 0;
+#X connect 11 0 17 0;
+#X connect 11 0 19 0;
+#X connect 12 0 10 0;
+#X connect 13 0 12 0;
+#X connect 16 0 0 0;
+#X connect 17 0 8 0;
+#X connect 17 0 31 0;
+#X connect 18 0 20 0;
+#X connect 19 0 18 0;
+#X connect 20 0 21 0;
+#X connect 22 0 14 0;
+#X connect 22 0 23 0;
+#X connect 24 0 3 0;
+#X connect 24 0 3 1;
+#X connect 25 0 26 0;
+#X connect 27 0 13 0;
+#X connect 28 0 24 0;
+#X connect 30 0 37 0;
+#X connect 30 0 38 0;
+#X connect 30 0 51 0;
+#X connect 31 0 30 0;
+#X connect 33 0 34 0;
+#X connect 34 1 35 0;
+#X connect 35 0 36 0;
+#X connect 35 0 36 1;
+#X connect 37 0 29 0;
+#X connect 37 0 34 2;
+#X connect 38 0 32 0;
+#X connect 38 0 34 1;
+#X connect 39 0 10 0;
+#X connect 41 0 43 0;
+#X connect 42 0 41 0;
+#X connect 43 0 33 0;
+#X connect 51 0 40 0;
+#X connect 51 0 35 1;
+#X connect 55 0 15 0;
+#X connect 56 0 57 0;
+#X connect 58 0 6 0;
+#X connect 59 0 60 0;
+#X connect 60 0 62 0;
+#X connect 60 1 13 0;
+#X connect 60 1 39 0;
+#X connect 61 0 35 1;
+#X connect 62 0 63 0;
+#X connect 63 0 64 0;
+#X connect 64 0 35 1;
+#X coords 0 -1 1 1 1000 600 1 100 100;
+#X restore 127 17 pd Clima & Fogo;
