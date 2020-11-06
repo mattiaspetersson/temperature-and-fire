@@ -1,4 +1,4 @@
-# TemperatureAndFire
+# Temperature and Fire
 Sonification of mainland Portugal's annual average maximum air temperature from 1970 to 2019, using Pure Data.
 
 
